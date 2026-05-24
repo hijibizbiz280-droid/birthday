@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  background: #0c0a14;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5e6f0;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── Stars ── */
+.starfield { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: tw var(--dur, 3s) ease-in-out infinite alternate;
+}
+@keyframes tw {
+  0%   { opacity: 0.05; }
+  100% { opacity: 0.9; }
+}
+
+/* ── Floating petals ── */
+.petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  font-size: var(--s, 14px);
+  animation: fp var(--dur, 9s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes fp {
+  0%   { transform: translateY(-5vh) translateX(0) rotate(0deg);   opacity: 0; }
+  5%   { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(105vh) translateX(40px) rotate(360deg); opacity: 0; }
+}
+
+/* ── Glass card ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 180, 210, 0.15);
+  border-radius: 20px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Typography ── */
+.font-cormorant { font-family: 'Cormorant Garamond', serif; }
+.font-vibes     { font-family: 'Great Vibes', cursive; }
+
+.gradient-text {
+  background: linear-gradient(135deg, #ff9ec4, #ffd6ea, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Buttons ── */
+.btn-glow {
+  display: inline-block;
+  background: linear-gradient(135deg, #c2185b, #e91e8c, #f06292);
+  border: none;
+  border-radius: 50px;
+  padding: 13px 36px;
+  font-size: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 4px 24px rgba(233, 30, 140, 0.3);
+}
+.btn-glow:hover  { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(233,30,140,0.45); }
+.btn-glow:active { transform: translateY(0); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 150, 196, 0.3);
+  box-shadow: none;
+  color: #e8b4cc;
+}
+.btn-ghost:hover { background: rgba(255,150,196,0.08); box-shadow: none; }
+
+/* ── Password input ── */
+.pw-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 150, 196, 0.25);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #fde8f2;
+  font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.15em;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin: 16px 0 8px;
+}
+.pw-input:focus {
+  border-color: rgba(255,150,196,0.6);
+  box-shadow: 0 0 0 3px rgba(255,150,196,0.08);
+}
+.pw-input.error { border-color: #ff7eb3; }
+
+/* ── Divider ── */
+.divider {
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, #e91e8c, transparent);
+  margin: 16px auto;
+}
+
+/* ── Progress dots ── */
+.progress-dots { display: flex; gap: 8px; justify-content: center; margin-top: 32px; position: relative; z-index: 2; }
+.pdot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,150,196,0.2); transition: all 0.35s; }
+.pdot.active { background: #e91e8c; width: 20px; border-radius: 3px; }
+
+/* ── Candle flame ── */
+@keyframes flicker {
+  0%   { transform-origin: 50% 100%; transform: scaleX(1)    scaleY(1)    rotate(-2deg); }
+  20%  { transform-origin: 50% 100%; transform: scaleX(1.12) scaleY(0.88) rotate(3deg); }
+  40%  { transform-origin: 50% 100%; transform: scaleX(0.88) scaleY(1.1)  rotate(-1deg); }
+  60%  { transform-origin: 50% 100%; transform: scaleX(1.06) scaleY(0.96) rotate(2deg); }
+  80%  { transform-origin: 50% 100%; transform: scaleX(0.95) scaleY(1.05) rotate(-3deg); }
+  100% { transform-origin: 50% 100%; transform: scaleX(1)    scaleY(1)    rotate(-2deg); }
+}
+.flame-animate { animation: flicker 0.45s ease-in-out infinite; }
+
+@keyframes glowPulse { 0%,100%{opacity:0.5;} 50%{opacity:0.9;} }
+.flame-glow { animation: glowPulse 0.9s ease-in-out infinite; }
+
+@keyframes smokeUp {
+  0%   { transform: translateY(0) scale(1);   opacity: 0.7; }
+  100% { transform: translateY(-40px) scale(2.5); opacity: 0; }
+}
+.smoke-puff { animation: smokeUp 1.2s ease-out forwards; }
+
+/* ── Confetti ── */
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  pointer-events: none;
+  z-index: 999;
+  animation: cfFall var(--dur, 3s) ease-in forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes cfFall {
+  0%   { transform: translateY(-20px) rotate(0);    opacity: 1; }
+  100% { transform: translateY(110vh) rotate(540deg); opacity: 0; }
+}
+
+/* ── Love letter ── */
+.letter-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 2;
+  color: #f0d4e4;
+  text-align: left;
+  white-space: pre-wrap;
+}
+.letter-sig {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #ff9ec4;
+  text-align: right;
+  margin-top: 12px;
+  transition: opacity 1s;
+}
+
+/* ── Memory grid ── */
+.mem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 420px; margin: 16px 0; }
+.mem-card { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,150,196,0.15); }
+.mem-img  { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; }
+.mem-caption { padding: 10px 12px; background: rgba(0,0,0,0.25); }
+.mem-caption h3 { font-size: 0.82rem; font-weight: 500; color: #f4c2d8; margin-bottom: 2px; }
+.mem-caption p  { font-size: 0.75rem; color: #b890a8; line-height: 1.5; }
+
+/* ── Cake cursor ── */
+.cake-clickable { cursor: pointer; user-select: none; }
+
+/* ── Moon ── */
+@keyframes moonFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
+.moon-float { animation: moonFloat 3.5s ease-in-out infinite; }
+
+/* ── Heart pulse ── */
+@keyframes heartPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.12);} }
+.heart-pulse { animation: heartPulse 2s ease-in-out infinite; }
+
+/* ── Typewriter cursor ── */
+.typewriter::after { content:'|'; color:#ff4d8d; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* ── Music btn ── */
+.music-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,150,196,0.2);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-family: 'DM Sans', sans-serif;
+  color: #e8b4cc;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: background 0.2s;
+}
+.music-btn:hover { background: rgba(255,150,196,0.1); }
+.music-bar {
+  display: inline-block; width: 3px; background: #e91e8c; border-radius: 2px;
+  animation: mbar var(--d, 0.8s) ease-in-out infinite alternate;
+}
+@keyframes mbar { 0%{height:3px;} 100%{height:14px;} }
+
+/* ── Page layout ── */
+.page-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+}
